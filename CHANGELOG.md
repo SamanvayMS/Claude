@@ -8,6 +8,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.1.0] — 2026-03-28
+
+### Added
+
+- `commands/commit.md`: slash-command definition that invokes the commit skill workflow.
+- `plugins/claude-skills/`: reorganized plugin directory containing `agents/`, `commands/`, `hooks/`, and `skills/` subdirectories.
+
+### Changed
+
+- `.claude-plugin/plugin.json`: removed explicit `skills`, `agents`, `commands`, and `hooks` path fields, relying on the new `plugins/` directory structure instead.
+
+---
+
 ## [0.0.3] — 2026-03-28
 
 ### Added
