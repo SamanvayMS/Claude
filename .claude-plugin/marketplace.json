@@ -1,0 +1,18 @@
+{
+  "name": "claude-skills-dev",
+  "description": "Development marketplace for custom Claude skills",
+  "owner": {
+    "name": "SamanvayMS"
+  },
+  "plugins": [
+    {
+      "name": "claude-skills",
+      "description": "Custom skills, agents, hooks, and commands for Claude Code",
+      "version": "1.0.0",
+      "source": "./",
+      "author": {
+        "name": "SamanvayMS"
+      }
+    }
+  ]
+}

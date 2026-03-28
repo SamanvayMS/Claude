@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+# SessionStart hook - inject context at the start of each session
+
+set -euo pipefail
+
+# Determine plugin root directory
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+PLUGIN_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
+
+# Escape string for JSON embedding
+escape_for_json() {
+    local s="$1"
+    s="${s//\\/\\\\}"
+    s="${s//\"/\\\"}"
+    s="${s//$'\n'/\\n}"
+    s="${s//$'\r'/\\r}"
+    s="${s//$'\t'/\\t}"
+    printf '%s' "$s"
+}
+
+# Build session context from any skill files found in skills/
+# Each SKILL.md found under skills/ is included automatically
+skills_content=""
+nl=$'\n'
+if [ -d "${PLUGIN_ROOT}/skills" ]; then
+    while IFS= read -r -d '' skill_file; do
+        skill_name="$(basename "$(dirname "$skill_file")")"
+        skill_text="$(cat "$skill_file" 2>/dev/null || true)"
+        if [ -n "$skill_text" ]; then
+            skills_content="${skills_content}${nl}${nl}## Skill: ${skill_name}${nl}${nl}${skill_text}"
+        fi
+    done < <(find "${PLUGIN_ROOT}/skills" -name "SKILL.md" -print0 2>/dev/null)
+fi
+
+if [ -n "$skills_content" ]; then
+    context_text="<EXTREMELY_IMPORTANT>${nl}The following skills are available to you:${skills_content}${nl}</EXTREMELY_IMPORTANT>"
+else
+    context_text=""
+fi
+
+context_escaped=$(escape_for_json "$context_text")
+
+# Output context injection as JSON.
+# Cursor hooks expect additional_context.
+# Claude Code hooks expect hookSpecificOutput.additionalContext.
+if [ -n "${CURSOR_PLUGIN_ROOT:-}" ]; then
+    printf '{\n  "additional_context": "%s"\n}\n' "$context_escaped"
+elif [ -n "${CLAUDE_PLUGIN_ROOT:-}" ]; then
+    printf '{\n  "hookSpecificOutput": {\n    "hookEventName": "SessionStart",\n    "additionalContext": "%s"\n  }\n}\n' "$context_escaped"
+else
+    printf '{\n  "additional_context": "%s"\n}\n' "$context_escaped"
+fi
+
+exit 0
