@@ -1,0 +1,23 @@
+{
+  "name": "claude-skills",
+  "displayName": "Claude Skills",
+  "description": "Custom skills, agents, hooks, and commands for Cursor",
+  "version": "1.0.0",
+  "author": {
+    "name": "SamanvayMS"
+  },
+  "homepage": "https://github.com/SamanvayMS/Claude",
+  "repository": "https://github.com/SamanvayMS/Claude",
+  "license": "MIT",
+  "keywords": [
+    "skills",
+    "claude",
+    "agents",
+    "hooks",
+    "workflows"
+  ],
+  "skills": "./skills/",
+  "agents": "./agents/",
+  "commands": "./commands/",
+  "hooks": "./hooks/hooks-cursor.json"
+}

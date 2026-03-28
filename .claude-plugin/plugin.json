@@ -1,0 +1,22 @@
+{
+  "name": "claude-skills",
+  "description": "Custom skills, agents, hooks, and commands for Claude Code",
+  "version": "1.0.0",
+  "author": {
+    "name": "SamanvayMS"
+  },
+  "homepage": "https://github.com/SamanvayMS/Claude",
+  "repository": "https://github.com/SamanvayMS/Claude",
+  "license": "MIT",
+  "keywords": [
+    "skills",
+    "claude",
+    "agents",
+    "hooks",
+    "workflows"
+  ],
+  "skills": "./skills/",
+  "agents": "./agents/",
+  "commands": "./commands/",
+  "hooks": "./hooks/hooks.json"
+}
