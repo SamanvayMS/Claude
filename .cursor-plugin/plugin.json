@@ -2,7 +2,7 @@
   "name": "claude-skills",
   "displayName": "Claude Skills",
   "description": "Custom skills, agents, hooks, and commands for Cursor",
-  "version": "1.0.0",
+  "version": "0.0.3",
   "author": {
     "name": "SamanvayMS"
   },
